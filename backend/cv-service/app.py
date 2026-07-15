@@ -1,10 +1,12 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, send_file
+from flask_cors import CORS
 import os
 import cv2
 
 app = Flask(__name__)
+CORS(app)
+
 UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), "uploads")
-# keep uploads inside backend/cv-service/uploads regardless of current working directory
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
@@ -77,6 +79,16 @@ def update_edges():
 @app.route("/files/<filename>")
 def get_file(filename):
     return send_from_directory(UPLOAD_FOLDER, filename)
+
+
+@app.route("/download/<filename>")
+def download_file(filename):
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+
+    return send_file(
+        filepath,
+        as_attachment=True
+    )
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

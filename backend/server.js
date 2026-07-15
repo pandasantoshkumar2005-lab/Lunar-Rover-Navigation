@@ -11,7 +11,7 @@ app.use(cors());
 // Configure Multer to keep original filename
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+  cb(null, "cv-service/uploads/");
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname); // ✅ preserves original name + extension
@@ -23,7 +23,7 @@ const upload = multer({ storage: storage });
 app.post("/api/upload", upload.single("file"), async (req, res) => {
   try {
     const file = req.file;
-
+    console.log(req.file);
     // Forward the file to Flask CV service
     const formData = new FormData();
     formData.append("file", fs.createReadStream(file.path));
@@ -32,10 +32,7 @@ app.post("/api/upload", upload.single("file"), async (req, res) => {
       headers: formData.getHeaders(),
     });
 
-    res.json({
-      message: "File sent to CV service",
-      cvResponse: response.data,
-    });
+    res.json(response.data);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
