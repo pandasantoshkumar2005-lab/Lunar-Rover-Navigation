@@ -1,11 +1,13 @@
 import { useState } from "react";
+
 import {
   FaRocket,
   FaImage,
   FaChartLine,
   FaRobot,
   FaMapMarkedAlt,
-  FaShieldAlt
+  FaShieldAlt,
+  FaCloudUploadAlt
 } from "react-icons/fa";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -79,93 +81,251 @@ const handleEdgeUpdate = async () => {
   return (
     <div className="app-bg">
 
-      {/* Navbar */}
-      <nav className="navbar navbar-dark custom-nav">
-        <div className="container">
-          <span className="navbar-brand">
-            <FaRocket className="me-2" />
-            Lunar Rover Navigation System
-          </span>
+      {/* ================= NAVBAR ================= */}
+
+      <nav className="navbar custom-navbar px-5">
+
+        <div className="navbar-logo">
+
+          <FaRocket className="rocket-icon"/>
+
+          <div>
+
+            <h3>LUNAR ROVER</h3>
+
+            <small>Mission Control</small>
+
+          </div>
+
         </div>
+
+        <div className="nav-links">
+
+          <a href="#">Dashboard</a>
+
+          <a href="#">Analysis</a>
+
+          <a href="#">Navigation</a>
+
+          <a href="#">Mission Log</a>
+
+        </div>
+
       </nav>
 
-      {/* Hero */}
-      <div className="container text-center hero-section">
-        <h1>🚀 Lunar Rover Mission Control</h1>
-        <p>AI-Powered Terrain Analysis & Autonomous Navigation</p>
-      </div>
+      {/* ================= HERO ================= */}
 
-      {/* Feature Cards */}
-      <div className="container">
-        <div className="row g-4">
+      <section className="hero-section">
 
-          <div className="col-md-4">
-            <div className="glass-card">
-              <FaImage size={40} />
-              <h4 className="mt-3">Image Analysis</h4>
-              <p>Upload lunar terrain images</p>
-            </div>
-          </div>
+        <div className="hero-overlay">
 
-          <div className="col-md-4">
-            <div className="glass-card">
-              <FaChartLine size={40} />
-              <h4 className="mt-3">Hazard Detection</h4>
-              <p>Detect craters and obstacles</p>
-            </div>
-          </div>
+          <p className="hero-tag">
 
-          <div className="col-md-4">
-            <div className="glass-card">
-              <FaRobot size={40} />
-              <h4 className="mt-3">AI Navigation</h4>
-              <p>Suggest safe rover routes</p>
-            </div>
+            AI • COMPUTER VISION
+
+          </p>
+
+          <h1 className="hero-title">
+
+            LUNAR ROVER
+
+            <br/>
+
+            MISSION CONTROL
+
+          </h1>
+
+          <p className="hero-subtitle">
+
+            AI-powered terrain analysis, crater detection,
+
+            autonomous navigation and safe landing zone prediction
+
+            for next-generation lunar exploration.
+
+          </p>
+
+          <div className="hero-buttons">
+
+            <button className="primary-btn">
+
+              Start Analysis
+
+            </button>
+
+            <button className="secondary-btn">
+
+              Learn More
+
+            </button>
+
           </div>
 
         </div>
-      </div>
 
-      {/* Upload Card */}
+      </section>
+
+      {/* ================= FEATURES ================= */}
+
       <div className="container mt-5">
 
-        <div className="upload-card">
+        <div className="row g-4">
 
-          <h2>Upload Lunar Surface Image</h2>
+          <div className="col-lg-4">
 
-          <input
-            type="file"
-            className="form-control mt-3"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
+            <div className="feature-card">
+
+              <FaImage className="feature-icon blue"/>
+
+              <h3>Terrain Analysis</h3>
+
+              <p>
+
+                Upload high-resolution lunar imagery
+
+                for AI-powered preprocessing.
+
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="col-lg-4">
+
+            <div className="feature-card">
+
+              <FaChartLine className="feature-icon purple"/>
+
+              <h3>Hazard Detection</h3>
+
+              <p>
+
+                Detect rocks, craters and steep
+
+                slopes using Computer Vision.
+
+              </p>
+
+            </div>
+
+          </div>
+
+          <div className="col-lg-4">
+
+            <div className="feature-card">
+
+              <FaRobot className="feature-icon cyan"/>
+
+              <h3>AI Navigation</h3>
+
+              <p>
+
+                Generate safe rover traversal
+
+                paths with intelligent planning.
+
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* ================= UPLOAD SECTION ================= */}
+
+      <section className="container upload-section">
+
+        <div className="upload-panel">
+
+          <h2 className="upload-title">
+
+            Upload Lunar Surface Image
+
+          </h2>
+
+          <p className="upload-subtitle">
+
+            Upload a high-resolution lunar terrain image for
+            AI-powered analysis and hazard detection.
+
+          </p>
+
+          <label className="upload-box">
+
+            <FaCloudUploadAlt className="upload-icon"/>
+
+            <h4>
+
+              Drag & Drop Image Here
+
+            </h4>
+
+            <p>
+
+              or click to browse
+
+            </p>
+
+            <span>
+
+              JPG • PNG • JPEG
+
+            </span>
+
+            <input
+
+              type="file"
+
+              hidden
+
+              onChange={(e)=>setFile(e.target.files[0])}
+
+            />
+
+          </label>
+
+          {file && (
+
+            <div className="selected-file">
+
+              Selected File
+
+              <strong>
+
+                {file.name}
+
+              </strong>
+
+            </div>
+
+          )}
 
           <button
-            className="btn btn-primary mt-3 w-100"
+
+            className="analyze-btn"
+
             onClick={handleAnalyzeTerrain}
+
             disabled={loading}
+
           >
-          {loading ? "Analyzing Terrain..." : "Analyze Terrain"}
+
+            {loading ? "Analyzing Terrain..." : "Analyze Terrain"}
+
           </button>
 
         </div>
 
-      </div>
-
-
-      {loading && (
-        <div className="container text-center mt-4">
-          <div className="spinner-border text-info"></div>
-
-          <p className="mt-3">
-            Analyzing Lunar Surface...
-          </p>
-        </div>
-      )}
+      </section>
 
       {/* Images Section */}
       {response && (
 
-        <div className="container mt-5">
+        <div className="container-fluid mt-5">
 
           <h2 className="text-center mb-4 analysis-title">
             🌙 Mission Analysis Results
